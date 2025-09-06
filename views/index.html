@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Recipe Hub | Home</title>
+  <link href="/css/site.css" rel="stylesheet"/>
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-light">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="/images/logo.jpg" alt="Recipe Hub" class="brand-logo">
+        <span>Recipe Hub</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="navMain" class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Recipes</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/recipe-00000001">View All</a></li>
+              <li><a class="dropdown-item" href="/add-recipe-00000001">Add New</a></li>
+              <li><a class="dropdown-item" href="/delete-recipe-00000001">Delete</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Inventory</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/inventoryItem-00000001">View</a></li>
+              <li><a class="dropdown-item" href="/inventoryItem/add-00000001">Add Item</a></li>
+              <li><a class="dropdown-item" href="/delete-inventoryItem-00000001">Delete Item</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Advanced Features</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/filter-recipe-00000001">Filter</a></li>
+              <li><a class="dropdown-item" href="/search-recipe-00000001">Search &amp; Scale</a></li>
+            </ul>
+          </li>
+        </ul>
+        <span class="navbar-text text-white-50 small">
+          Welcome, <%= (student && student.name) || 'Takumi Watanabe' %>
+          (ID: <%= (student && student.id) || '00000001' %>)
+        </span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero section -->
+  <header class="bg-white border-bottom text-center py-4">
+    <div class="container">
+      <h1 class="h3 mb-1">Recipe Hub</h1>
+      <p class="mb-0 text-muted">Your Personal Meal Planning Assistant</p>
+      <p class="mt-2">
+        Welcome back, <strong><%= (student && student.name) || 'Takumi Watanabe' %></strong><br/>
+        <small>(ID: <%= (student && student.id) || '00000001' %>)</small>
+      </p>
+    </div>
+  </header>
+
+  <!-- Stats -->
+  <section class="container my-4">
+    <div class="row g-3 text-center">
+      <div class="col-6 col-md-3">
+        <div class="card"><div class="card-body">
+          <div class="fs-3 text-primary"><%= metrics.totalRecipes %></div>
+          <div class="small text-muted">Total Recipes</div>
+        </div></div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card"><div class="card-body">
+          <div class="fs-3 text-success"><%= metrics.totalInventoryItems %></div>
+          <div class="small text-muted">Inventory Items</div>
+        </div></div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card"><div class="card-body">
+          <div class="fs-3 text-info"><%= metrics.cuisineTypeCount %></div>
+          <div class="small text-muted">Cuisine Types</div>
+        </div></div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="card"><div class="card-body">
+          <div class="fs-3 text-warning">$<%= metrics.inventoryValue.toFixed(2) %></div>
+          <div class="small text-muted">Inventory Value</div>
+        </div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="container mb-5">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-header bg-light fw-semibold">Recipe Actions</div>
+          <div class="card-body d-grid gap-2">
+            <a href="/add-recipe-00000001" class="btn btn-outline-dark">Add Recipe</a>
+            <a href="/recipe-00000001" class="btn btn-outline-dark">View All</a>
+            <a href="/delete-recipe-00000001" class="btn btn-outline-danger">Delete</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-header bg-light fw-semibold">Inventory Actions</div>
+          <div class="card-body d-grid gap-2">
+            <a href="/inventoryItem/add-00000001" class="btn btn-outline-dark">Add Item</a>
+            <a href="/inventoryItem-00000001" class="btn btn-outline-dark">View Inventory</a>
+            <a href="/delete-inventoryItem-00000001" class="btn btn-outline-danger">Delete Item</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-header bg-light fw-semibold">Advanced Features</div>
+          <div class="card-body d-grid gap-2">
+            <a href="/filter-recipe-00000001" class="btn btn-outline-dark">Filter</a>
+            <a href="/search-recipe-00000001" class="btn btn-outline-dark">Search &amp; Scale</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-light border-top py-3">
+    <div class="container small text-center text-muted">
+      Built by <%= (student && student.name) || 'Takumi Watanabe' %> 
+      • © 2025 August
+    </div>
+  </footer>
+
+  <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

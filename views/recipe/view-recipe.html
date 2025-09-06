@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>All Recipes</title>
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="album py-5">
+    <div class="container">
+
+      <!-- Top navigation buttons -->
+      <a class="btn btn-primary" href="/">Home</a>
+      <a class="btn btn-success" href="/add-recipe-00000001">Add New Recipe</a>
+      <a class="btn btn-danger" href="/delete-recipe-00000001">Delete Recipe</a>
+
+      <h3 class="my-3">All Recipes</h3>
+
+      <div class="row row-cols-1 g-3">
+        <div class="col">
+          <table class="table table-hover table-bordered bg-white">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">Recipe ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Chef</th>
+                <th scope="col">Meal Type</th>
+                <th scope="col">Cuisine</th>
+                <th scope="col">Difficulty</th>
+                <th scope="col">Prep (min)</th>
+                <th scope="col">Servings</th>
+                <th scope="col">Created</th>
+                <th scope="col">Ingredients</th>
+                <th scope="col">Instructions</th>
+                <th scope="col" class="text-end">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% if (recipes && recipes.length) { %>
+                <% for (let i = 0; i < recipes.length; i++) { 
+                     const r = recipes[i];
+                     const rid = r.recipeId;                 // model property
+                     const chef = r.chef;                    // model property
+                     const ings = Array.isArray(r.ingredients) ? r.ingredients : [];
+                     const steps = Array.isArray(r.instructions) ? r.instructions : [];
+                %>
+                  <tr>
+                    <th scope="row" class="text-danger"><%= rid %></th>
+                    <td class="fw-semibold"><%= r.title %></td>
+                    <td><%= chef %></td>
+                    <td><%= r.mealType %></td>
+                    <td><%= r.cuisineType %></td>
+                    <td><%= r.difficulty %></td>
+                    <td><%= r.prepTime %></td>
+                    <td><%= r.servings %></td>
+                    <td><%= r.createdDate || '' %></td>     <!-- model property -->
+                    <td><%= ings.length %></td>
+                    <td><%= steps.length %></td>
+                    <td class="text-end">
+                      <form action="/recipe/<%= r.recipeId %>/delete-00000001" method="POST"
+                            onsubmit="return confirm('Delete this recipe?');">
+                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                      </form>
+                    </td>
+                  </tr>
+                <% } %>
+              <% } else { %>
+                <tr>
+                  <td colspan="12" class="text-center text-muted">No recipes yet</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Filter Recipes</title>
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="album py-5">
+    <div class="container">
+
+      <!-- Top nav -->
+      <a class="btn btn-primary" href="/">Home</a>
+      <a class="btn btn-secondary" href="/recipe-00000001">All Recipes</a>
+
+      <h3 class="my-3">Filter Recipes</h3>
+
+      <!-- Filter form (GET to the same route) -->
+      <div class="row row-cols-1 g-3">
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <form class="row g-3" method="GET" action="/filter-recipe-00000001">
+                <div class="col-md-4">
+                  <label class="form-label">Meal Type</label>
+                  <select class="form-select" name="mealType">
+                    <option value="all" <%= selected.mealType==='all'?'selected':'' %>>All</option>
+                    <% (options.mealTypes || []).forEach(m => { %>
+                      <option value="<%= m %>" <%= selected.mealType===m?'selected':'' %>><%= m %></option>
+                    <% }) %>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Cuisine Type</label>
+                  <select class="form-select" name="cuisineType">
+                    <option value="all" <%= selected.cuisineType==='all'?'selected':'' %>>All</option>
+                    <% (options.cuisineTypes || []).forEach(c => { %>
+                      <option value="<%= c %>" <%= selected.cuisineType===c?'selected':'' %>><%= c %></option>
+                    <% }) %>
+                  </select>
+                </div>
+
+                <div class="col-md-4">
+                  <label class="form-label">Difficulty</label>
+                  <select class="form-select" name="difficulty">
+                    <option value="all" <%= selected.difficulty==='all'?'selected':'' %>>All</option>
+                    <% (options.difficulties || []).forEach(d => { %>
+                      <option value="<%= d %>" <%= selected.difficulty===d?'selected':'' %>><%= d %></option>
+                    <% }) %>
+                  </select>
+                </div>
+
+                <div class="col-12 d-flex gap-2">
+                  <button class="btn btn-primary" type="submit">Apply</button>
+                  <a class="btn btn-outline-secondary" href="/filter-recipe-00000001">Clear</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results header (count) -->
+        <div class="col">
+          <div class="d-flex align-items-center">
+            <h5 class="mb-0">Results</h5>
+            <span class="ms-2 text-muted small"><%= meta.shown %> / <%= meta.total %> shown</span>
+            <a href="/recipe-00000001" class="btn btn-sm btn-outline-primary ms-auto">View All</a>
+          </div>
+        </div>
+
+        <!-- Results list -->
+        <div class="col">
+          <% if (!recipes || recipes.length === 0) { %>
+            <div class="text-muted">No recipes match the selected filters.</div>
+          <% } %>
+
+          <% (recipes || []).forEach(r => { %>
+            <div class="card mb-3">
+              <div class="card-body">
+                <div class="d-flex">
+                  <div>
+                    <div class="fw-semibold"><%= r.title %></div>
+                    <div class="small text-muted mb-2">by <%= r.chef %></div>
+
+                    <div class="small">
+                      <div><strong>Meal:</strong> <%= r.mealType %></div>
+                      <div><strong>Cuisine:</strong> <%= r.cuisineType %></div>
+                      <div><strong>Difficulty:</strong> <%= r.difficulty %></div>
+                      <div><strong>Prep:</strong> <%= r.prepTime %> min</div>
+                      <div><strong>Servings:</strong> <%= r.servings %></div>
+                      <div><strong>Created:</strong> <%= r.createdDate || '' %></div>
+                    </div>
+
+                    <% if (r.ingredients && r.ingredients.length) { %>
+                      <div class="small mt-2">
+                        <strong>Ingredients:</strong>
+                        <ul class="mb-0">
+                          <% r.ingredients.slice(0,3).forEach(i => { %>
+                            <li><%= i %></li>
+                          <% }) %>
+                          <% if (r.ingredients.length > 3) { %>
+                            <li class="text-muted">… and <%= r.ingredients.length - 3 %> more</li>
+                          <% } %>
+                        </ul>
+                      </div>
+                    <% } %>
+                  </div>
+
+                  <!-- ID pill on the right -->
+                  <div class="ms-auto small text-muted align-self-start">
+                    <%= r.recipeId %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

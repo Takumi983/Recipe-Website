@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Inventory</title>
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="album py-5">
+    <div class="container">
+
+      <!-- Top nav buttons -->
+      <a class="btn btn-primary" href="/">Home</a>
+      <a class="btn btn-success" href="/inventoryItem/add-00000001">Add Item</a>
+      <a class="btn btn-danger"  href="/delete-inventoryItem-00000001">Delete Item</a>
+
+      <h3 class="my-3">Inventory</h3>
+
+      <!-- Optional feedback -->
+      <% if (msg) { %>
+        <div class="alert alert-<%= msgType %>"><%= msg %></div>
+      <% } %>
+
+      <!-- Plain filters row  -->
+      <div class="row g-2 mb-3">
+        <div class="col-sm-6">
+          <label class="form-label">Filter by Category</label>
+          <select id="filterCategory" class="form-select">
+            <option value="">All</option>
+            <% (categories || []).forEach(c => { %>
+              <option value="<%= c %>"><%= c %></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="col-sm-6">
+          <label class="form-label">Filter by Location</label>
+          <select id="filterLocation" class="form-select">
+            <option value="">All</option>
+            <% (locations || []).forEach(l => { %>
+              <option value="<%= l %>"><%= l %></option>
+            <% }) %>
+          </select>
+        </div>
+      </div>
+
+      <!-- Inventory table (white background, borders, hover) -->
+      <div class="row row-cols-1 g-3">
+        <div class="col">
+          <table class="table table-hover table-bordered bg-white" id="invTable">
+            <thead class="table-light">
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Category</th>
+                <th scope="col">Location</th>
+                <th scope="col" class="text-end">Qty</th>
+                <th scope="col">Unit</th>
+                <th scope="col" class="text-end">Unit Price</th>
+                <th scope="col" class="text-end">Line Value</th>
+                <th scope="col">Expiry</th>
+                <th scope="col">Supplier</th>
+                <th scope="col" class="text-end">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (items && items.length) { %>
+                <% items.forEach(it => { %>
+                  <tr data-category="<%= it.category || '' %>" data-location="<%= it.location || '' %>">
+                    <td class="fw-semibold"><%= it.ingredientName %></td>
+                    <td><%= it.category || '-' %></td>
+                    <td><%= it.location || '-' %></td>
+                    <td class="text-end"><%= it.quantity %></td>
+                    <td><%= it.unit %></td>
+                    <td class="text-end">$<%= Number(it.cost || 0).toFixed(2) %></td>
+                    <td class="text-end">$<%= Number(it.lineValue || 0).toFixed(2) %></td>
+                    <td>
+                      <% if (it.daysLeft === null || it.daysLeft === undefined) { %>
+                        N/A
+                      <% } else if (it.daysLeft < 0) { %>
+                        Expired
+                      <% } else { %>
+                        <%= it.daysLeft %> days
+                      <% } %>
+                    </td>
+                    <td><%= it.supplier || '-' %></td>
+                    <td class="text-end">
+                      <form action="/inventory/<%= it.inventoryId %>/delete-00000001" method="POST"
+                            onsubmit="return confirm('Delete this item?');">
+                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                      </form>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="10" class="text-center text-muted">No inventory items</td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Very small script: same simple filtering logic -->
+  <script>
+    const catSel = document.getElementById('filterCategory');
+    const locSel = document.getElementById('filterLocation');
+    function applyFilter() {
+      const cat = catSel.value;
+      const loc = locSel.value;
+      document.querySelectorAll('#invTable tbody tr').forEach(tr => {
+        const okCat = !cat || tr.dataset.category === cat;
+        const okLoc = !loc || tr.dataset.location === loc;
+        tr.style.display = (okCat && okLoc) ? '' : 'none';
+      });
+    }
+    catSel.addEventListener('change', applyFilter);
+    locSel.addEventListener('change', applyFilter);
+  </script>
+</body>
+</html>

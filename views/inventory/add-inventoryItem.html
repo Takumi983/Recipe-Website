@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Add Inventory Item</title>
+  <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+  <div class="album py-5">
+    <div class="container">
+
+      <!-- Top nav buttons -->
+      <a class="btn btn-primary" href="/">Home</a>
+      <a class="btn btn-success" href="/inventoryItem-00000001">View Inventory</a>
+
+      <h3 class="my-3">Add Inventory Item</h3>
+
+      <div class="row row-cols-1 g-3">
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-body">
+
+              <form action="/inventory-00000001" method="POST">
+
+                <div class="mb-3">
+                  <label class="form-label">Item Name *</label>
+                  <input type="text" name="ingredientName" class="form-control" placeholder="e.g., Olive Oil" required>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Category *</label>
+                  <input type="text" name="category" class="form-control" placeholder="e.g., Pantry" required>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label">Location *</label>
+                  <input type="text" name="location" class="form-control" placeholder="e.g., Cupboard" required>
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <label class="form-label">Quantity *</label>
+                    <input type="number" name="quantity" class="form-control" min="0" step="0.01" value="1" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Unit *</label>
+                    <input type="text" name="unit" class="form-control" placeholder="e.g., kg, L, pcs" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label">Price per Unit ($) *</label>
+                    <input type="number" name="cost" class="form-control" min="0" step="0.01" value="0" required>
+                  </div>
+                </div>
+
+                <div class="row g-3 mt-0">
+                  <div class="col-md-6">
+                    <label class="form-label">Expiry Date</label>
+                    <input type="date" name="expirationDate" class="form-control">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label">Supplier</label>
+                    <input type="text" name="supplier" class="form-control" placeholder="e.g., Local Market">
+                  </div>
+                </div>
+
+                <div class="mt-3">
+                  <button class="btn btn-primary">Add Item</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

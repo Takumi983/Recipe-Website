@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Add Recipe Page</title>
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+  </head>
+
+  <body>
+    <main>
+      <div class="album py-5">
+        <div class="container">
+          <!-- Top buttons -->
+          <a class="btn btn-primary" href="/">Home</a>
+          <a class="btn btn-primary" href="/recipe-00000001">View All Recipes</a>
+
+          <h3 class="my-2">Add New Recipe</h3>
+
+          <div class="row row-cols-1 row-cols-sm-2 g-3">
+            <div class="col">
+              <div class="card shadow-sm">
+                <div class="card-body">
+
+                  <!-- POST target (Task 5) -->
+                  <form action="/recipe-00000001" method="POST" novalidate>
+                    <!-- --- Model properties --- -->
+                    <!-- Recipe.title -->
+                    <div class="mb-3">
+                      <label for="title" class="form-label">Recipe Title *</label>
+                      <input type="text" name="title" id="title" class="form-control"
+                             placeholder="e.g., Pancakes" required />
+                    </div>
+
+                    <!-- Recipe.chef -->
+                    <div class="mb-3">
+                      <label for="chef" class="form-label">Chef *</label>
+                      <input type="text" name="chef" id="chef" class="form-control"
+                             value="TakumiWatanabe-00000001" required />
+                    </div>
+
+                    <!-- Recipe.mealType -->
+                    <div class="mb-3">
+                      <label for="mealType" class="form-label">Meal Type *</label>
+                      <select name="mealType" id="mealType" class="form-select" required>
+                        <option value="" selected disabled>Select…</option>
+                        <option>Breakfast</option>
+                        <option>Lunch</option>
+                        <option>Dinner</option>
+                        <option>Dessert</option>
+                        <option>Snack</option>
+                      </select>
+                    </div>
+
+                    <!-- Recipe.cuisineType -->
+                    <div class="mb-3">
+                      <label for="cuisineType" class="form-label">Cuisine Type *</label>
+                      <select name="cuisineType" id="cuisineType" class="form-select" required>
+                        <option value="" selected disabled>Select…</option>
+                        <option>American</option>
+                        <option>Italian</option>
+                        <option>Japanese</option>
+                        <option>Thai</option>
+                        <option>Chinese</option>
+                        <option>French</option>
+                      </select>
+                    </div>
+
+                    <!-- Recipe.prepTime -->
+                    <div class="mb-3">
+                      <label for="prepTime" class="form-label">Prep Time (minutes) *</label>
+                      <input type="number" name="prepTime" id="prepTime" class="form-control"
+                             min="0" step="1" value="15" required />
+                    </div>
+
+                    <!-- Recipe.difficulty -->
+                    <div class="mb-3">
+                      <label for="difficulty" class="form-label">Difficulty *</label>
+                      <select name="difficulty" id="difficulty" class="form-select" required>
+                        <option value="" selected disabled>Select…</option>
+                        <option>Easy</option>
+                        <option>Medium</option>
+                        <option>Hard</option>
+                      </select>
+                    </div>
+
+                    <!-- Recipe.servings -->
+                    <div class="mb-3">
+                      <label for="servings" class="form-label">Servings *</label>
+                      <input type="number" name="servings" id="servings" class="form-control"
+                             min="1" step="1" value="2" required />
+                    </div>
+
+                    <!-- Recipe.ingredients -->
+                    <div class="mb-3">
+                      <label for="ingredients" class="form-label">Ingredients *</label>
+                      <textarea name="ingredients" id="ingredients" rows="5" class="form-control"
+                                placeholder="- 200 g flour&#10;- 150 ml milk&#10;- 2 eggs"
+                                required></textarea>
+                    </div>
+
+                    <!-- Recipe.instructions -->
+                    <div class="mb-3">
+                      <label for="instructions" class="form-label">Instructions *</label>
+                      <textarea name="instructions" id="instructions" rows="5" class="form-control"
+                                placeholder="1. Mix dry ingredients&#10;2. Add wet ingredients&#10;3. Cook on pan"
+                                required></textarea>
+                    </div>
+
+                    <!-- Submit -->
+                    <button class="btn btn-primary">Submit</button>
+                  </form>
+
+                </div><!-- card-body -->
+              </div><!-- card -->
+            </div><!-- col -->
+          </div><!-- row -->
+        </div><!-- container -->
+      </div><!-- album -->
+    </main>
+  </body>
+</html>
