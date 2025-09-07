@@ -3,7 +3,7 @@ const path = require("path"); // Node.js module for handling and transforming fi
 const express = require("express");
 const Recipe = require("./models/recipe");
 const InventoryItem = require("./models/inventoryItem");
-const PORT = 3000;
+const PORT = 3001;
 
 const app = express();
 const { recipes, inventory } = require("./data/sampleData"); // Load sample data for recipes and inventory
